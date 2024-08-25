@@ -1,13 +1,25 @@
 from pydantic import BaseModel,Field
+from dotenv import load_dotenv
+import os
 import csv
+
+load_dotenv(dotenv_path='.env.prod')
+
+# 从环境变量中读取API_KEY
+audio_path_from_env = os.getenv('AUDIO_PATH')
+group_id_from_env = os.getenv('GROUP_ID')
+message_max_from_env = os.getenv('MESSAGE_MAX')
+user_list_path_from_env = os.getenv('USER_LIST_PATH')
+api_key_from_env = os.getenv('API_KEY')
+
 
 class Config(BaseModel):
     """Plugin Config Here"""
-    audio_path: str = Field("E:\\Computer\\QQbot-2\\MiniChovy-2\\src\\plugins\\ai_audio\\audios",description="Path to the audio file")
-    group_id: str = Field("1810530961268413127", description="The ID of the group")
-    api_key: str = Field("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJXdWhhbiBVbml2ZXJzaXR5IiwiVXNlck5hbWUiOiJXdWhhbiBVbml2ZXJzaXR5IiwiQWNjb3VudCI6IiIsIlN1YmplY3RJRCI6IjE4MTA1MzA5NjEyNzI2MDc0OTYiLCJQaG9uZSI6IjE5ODkxNTI2ODkyIiwiR3JvdXBJRCI6IjE4MTA1MzA5NjEyNjg0MTMxMjciLCJQYWdlTmFtZSI6IiIsIk1haWwiOiJBWnl1YW5qdW5AMTYzLmNvbSIsIkNyZWF0ZVRpbWUiOiIyMDI0LTA4LTE0IDExOjUxOjA1IiwiaXNzIjoibWluaW1heCJ9.bjy0RH-QyuQ4GvngFXmhNKzsGzKMErsNV1dHwjSWbRS3MYuzd6z6ug036v2IBNyTmLGDc9IxZuP9NVp36BQAfakr-naxrJ1Fnfy_DuZzRrKY7XVzEKqaovkimmJZqU1bRY80wQJ1CfjpLRlSQWZB2cr3PJG_lJUSa3TBS6Oz_mGaN2qv14CbGzvqPlTEMJuPuhHQmjzfYhXvvn0vfyoN644tw-661f78PhDJ1zN0nY24La3KUH444cYosQ-6R13_bogeVC9NtkZW9pmME-BpOyVgm4mVz2qM-ADdsvbZCZ_1fJ-pN1g6qQ5WfRfSWLXg9KGGkh3T6howOPrs90VYRg", description="The API key for authentication")
-    message_max: int = Field(20, description="The maximum number of messages allowed")
-    user_list_path:str =Field( "E:\\Computer\\QQbot-2\\MiniChovy-2\\src\\plugins\\ai_test\\whitelist\\ailist.csv",description="Path to the user list file")
+    audio_path: str = Field(audio_path_from_env,description="Path to the audio file") # 这里写上你的音频文件路径
+    group_id: str = Field(group_id_from_env, description="The ID of the group") # 这里写上你的MiniMax Group ID
+    api_key: str = Field(api_key_from_env, description="The API key for authentication") # 这里写上你的MiniMax API Key
+    message_max: int = Field(message_max_from_env, description="The maximum number of messages allowed")
+    user_list_path:str =Field(user_list_path_from_env,description="Path to the user list file")
     url : str = Field("http://127.0.0.1:5000/tts",description="URL of the TTS API")
 def load_user_list_from_csv(file_path):
     user_list = []
