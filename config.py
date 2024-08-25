@@ -18,7 +18,7 @@ class Config(BaseModel):
     audio_path: str = Field(audio_path_from_env,description="Path to the audio file") # 这里写上你的音频文件路径
     group_id: str = Field(group_id_from_env, description="The ID of the group") # 这里写上你的MiniMax Group ID
     api_key: str = Field(api_key_from_env, description="The API key for authentication") # 这里写上你的MiniMax API Key
-    message_max: int = Field(message_max_from_env, description="The maximum number of messages allowed")
+    message_max: int = Field(int(message_max_from_env), description="The maximum number of messages allowed")
     user_list_path:str =Field(user_list_path_from_env,description="Path to the user list file")
     url : str = Field("http://127.0.0.1:5000/tts",description="URL of the TTS API")
 def load_user_list_from_csv(file_path):
