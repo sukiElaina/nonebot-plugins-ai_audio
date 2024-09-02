@@ -66,7 +66,7 @@ user_list,ai_isopen = load_user_list_from_csv(config.user_list_path)
 
 
 @test_audio.handle()
-async def _(bot: Bot, state: T_State, event:GroupMessageEvent ,message: Message = CommandArg()):
+async def _(bot: Bot, state: T_State, event:PrivateMessageEvent,message: Message = CommandArg()):
     message_text = str(message)  # 将Message对象中的内容转化为字符串
     user_id = event.user_id
     request_body["messages"].append({"sender_type": "USER", "sender_name": f"{user_id}", "text": message_text})
